@@ -4,63 +4,124 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pick your way</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
     <style>
-        body { font-family: 'Pretendard', sans-serif; background-color: #FAF9F6; margin: 0; }
-        .aspect-19-5 { aspect-ratio: 19.5 / 5; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #FAF9F6;
+            margin: 0;
+        }
+
+        .aspect-19-5 {
+            aspect-ratio: 19.5 / 5;
+        }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
+
     <script type="text/babel">
         const { useState, useEffect } = React;
-        const { motion, AnimatePresence } = FramerMotion;
 
         const wallpapers = [
-            { id: 1, src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2400&q=100", thumb: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80", title: "Silent Ridge", category: "Nature" },
-            { id: 2, src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=2400&q=100", thumb: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80", title: "Frozen Light", category: "Nature" },
-            { id: 3, src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2400&q=100", thumb: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80", title: "Concrete Form", category: "Minimal" }
+            {
+                id: 1,
+                src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=2400&q=100",
+                thumb: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=80",
+                title: "Silent Ridge",
+                category: "Nature"
+            },
+            {
+                id: 2,
+                src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=2400&q=100",
+                thumb: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=80",
+                title: "Frozen Light",
+                category: "Nature"
+            },
+            {
+                id: 3,
+                src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2400&q=100",
+                thumb: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+                title: "Concrete Form",
+                category: "Minimal"
+            }
         ];
 
         function App() {
-            const [selected, setSelected] = useState(null);
             const [scrolled, setScrolled] = useState(false);
 
             useEffect(() => {
-                const onScroll = () => setScrolled(window.scrollY > 40);
+                const onScroll = () => {
+                    setScrolled(window.scrollY > 40);
+                };
+
                 window.addEventListener("scroll", onScroll);
-                return () => window.removeEventListener("scroll", onScroll);
+
+                return () => {
+                    window.removeEventListener("scroll", onScroll);
+                };
             }, []);
 
             return (
                 <div className="min-h-screen">
-                    <nav className={`fixed top-0 w-full h-[62px] px-8 flex items-center justify-between z-40 transition-all ${scrolled ? 'bg-[#FAF9F6]/90 backdrop-blur-md border-b' : 'bg-transparent text-white'}`}>
+                    <nav className={`fixed top-0 w-full h-[62px] px-8 flex items-center justify-between z-40 transition-all duration-300 ${
+                        scrolled
+                            ? "bg-[#FAF9F6]/90 backdrop-blur-md border-b border-black/10 text-black"
+                            : "bg-transparent text-white"
+                    }`}>
                         <span className="font-bold text-sm">pick your way</span>
                     </nav>
+
                     <section className="h-screen relative flex flex-col justify-end p-8 md:p-14 overflow-hidden">
-                        <img src={wallpapers[0].src} className="absolute inset-0 w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-black/30" />
+                        <img
+                            src={wallpapers[0].src}
+                            className="absolute inset-0 w-full h-full object-cover"
+                            alt="main wallpaper"
+                        />
+
+                        <div className="absolute inset-0 bg-black/30"></div>
+
                         <div className="relative z-10">
-                            <p className="text-[10px] uppercase tracking-widest text-white/60 mb-2">pick your way</p>
+                            <p className="text-[10px] uppercase tracking-widest text-white/60 mb-2">
+                                pick your way
+                            </p>
+
                             <h1 className="text-white text-2xl md:text-4xl font-medium leading-tight max-w-xl">
-                                These are the backgrounds of PYW's various moments. <br/>
+                                These are the backgrounds of PYW's various moments. <br />
                                 <span className="text-white/60">I hope you're happier.</span>
                             </h1>
                         </div>
                     </section>
+
                     <div className="p-6 md:p-14 flex flex-col gap-4">
-                        {wallpapers.map(item => (
-                            <div key={item.id} className="relative aspect-19-5 overflow-hidden cursor-pointer group" onClick={() => setSelected(item)}>
-                                <img src={item.thumb} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-end p-6">
-                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <p className="text-[10px] text-white/60 uppercase">{item.category}</p>
-                                        <h3 className="text-white font-medium">{item.title}</h3>
+                        {wallpapers.map((item) => (
+                            <div
+                                key={item.id}
+                                className="relative aspect-19-5 overflow-hidden cursor-pointer group"
+                            >
+                                <img
+                                    src={item.thumb}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    alt={item.title}
+                                />
+
+                                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-end p-6">
+                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <p className="text-[10px] text-white/60 uppercase">
+                                            {item.category}
+                                        </p>
+
+                                        <h3 className="text-white font-medium">
+                                            {item.title}
+                                        </h3>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +130,8 @@
                 </div>
             );
         }
-        const root = ReactDOM.createRoot(document.getElementById('root'));
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
         root.render(<App />);
     </script>
 </body>
