@@ -31,7 +31,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        const categories = ["wallpaper", "kor", "eng"];
+        const categories = ["all", "photo", "calendar"];
 
         const wallpapers = [
             {
@@ -39,69 +39,69 @@
                 src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
                 title: "Silent Ridge",
-                category: "wallpaper"
+                category: "photo"
             },
             {
                 id: 2,
                 src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&q=80",
                 title: "Frozen Light",
-                category: "wallpaper"
+                category: "photo"
             },
             {
                 id: 3,
                 src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
                 title: "Concrete Form",
-                category: "wallpaper"
+                category: "photo"
             },
             {
                 id: 4,
                 src: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?w=800&q=80",
-                title: "고요한 숲",
-                category: "kor"
+                title: "January Calendar",
+                category: "calendar"
             },
             {
                 id: 5,
                 src: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80",
-                title: "따뜻한 순간",
-                category: "kor"
+                title: "February Calendar",
+                category: "calendar"
             },
             {
                 id: 6,
                 src: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80",
-                title: "흐르는 빛",
-                category: "kor"
+                title: "March Calendar",
+                category: "calendar"
             },
             {
                 id: 7,
                 src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
                 title: "Soft Forest",
-                category: "eng"
+                category: "photo"
             },
             {
                 id: 8,
                 src: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
                 title: "Quiet Lake",
-                category: "eng"
+                category: "photo"
             },
             {
                 id: 9,
                 src: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&q=100",
                 thumb: "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&q=80",
-                title: "Open Air",
-                category: "eng"
+                title: "April Calendar",
+                category: "calendar"
             }
         ];
 
         function App() {
             const [scrolled, setScrolled] = useState(false);
-            const [activeCategory, setActiveCategory] = useState("wallpaper");
+            const [activeCategory, setActiveCategory] = useState("all");
 
             useEffect(() => {
                 const onScroll = () => {
@@ -115,9 +115,9 @@
                 };
             }, []);
 
-            const filteredWallpapers = wallpapers.filter(
-                (item) => item.category === activeCategory
-            );
+            const filteredWallpapers = activeCategory === "all"
+                ? wallpapers
+                : wallpapers.filter((item) => item.category === activeCategory);
 
             const handleDownload = async (item) => {
                 try {
